@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.redis.mapper.MemberMapper">
+
+    <resultMap id="member" type="com.test.redis.entity.Member">
+        <id column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <result column="nick_ame" property="nickName"/>
+        <result column="real_ame" property="realName"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="sex" property="sex"/>
+    </resultMap>
+
+    <select id="findByLoginName" resultMap="member">
+        SELECT *
+        FROM member
+        WHERE login_name = #{loginName}
+    </select>
+
+    <select id="getAll" resultMap="member">
+        SELECT *
+        FROM member
+    </select>
+
+    <update id="updateLoginInfo">
+        UPDATE member
+        SET token=#{token},login_time=#{loginTime}
+        WHERE id=#{id}
+    </update>
+
+</mapper>
