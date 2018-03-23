@@ -24,7 +24,8 @@ public class TestFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        if (!request.getRequestURI().equals("/login") && !request.getRequestURI().contains("/assets")) {
+        if (!request.getRequestURI().equals("/login") && !request.getRequestURI().contains("/assets") && !request
+                .getRequestURI().contains("/actuator")) {
             String token = request.getSession().getId().replace("-", "");
             if (StringUtils.isNotBlank(RedisUtil.getValue(token))) {
                 RedisUtil.setValue(token, request.getSession().getId(), 30, TimeUnit.MINUTES);
